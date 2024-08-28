@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
 
 
 export const metadata: Metadata = {
@@ -27,13 +28,15 @@ export default function RootLayout({
                 <head>
                     <link rel="icon" href="/favicon.ico" sizes="any" />
                 </head>
-                <body
-                    className={cn(
-                        "min-h-screen bg-background font-sans antialiased",
-                        fontSans.variable
-                    )}
-                >
-                    {children}
+                <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
+                    <ThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        {children}
+                    </ThemeProvider>
                 </body>
             </html>
         </ClerkProvider>

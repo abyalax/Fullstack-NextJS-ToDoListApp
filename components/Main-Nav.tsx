@@ -2,18 +2,22 @@
 
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { useParams, usePathname } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
 
     const pathname = usePathname()
-    const params = useParams()
 
     const routes = [
         {
-            href: "/",
+            href: "/home",
             label: "Home",
-            active: pathname === "/"
+            active: pathname === "/home"
+        },
+        {
+            href: "/task",
+            label: "Task",
+            active: pathname === "/task"
         },
     ]
 
@@ -24,8 +28,8 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
         )}>
             {routes.map((route) => (
                <Link key={route.href} href={route.href} className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                route.active ? "text-black dark:text-white" : "text-muted-foreground"
+                "text-md transition-colors hover:text-md font-semibold",
+                route.active ? "text-black dark:text-white" : "text-gray-500 dark:text-gray-400"
                )}>
                {route.label}
                </Link>

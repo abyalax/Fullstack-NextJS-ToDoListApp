@@ -1,40 +1,36 @@
 "use client"
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import { useMediaQuery } from 'usehooks-ts'
+import { SidebarDesktop, SidebarMobile } from './ui/sidebar'
+import { HomeIcon, CircleCheckBig, ClipboardList, } from 'lucide-react'
 
 const Sidebar = () => {
-
+    const isDesktop = useMediaQuery('(min-width: 640px)', {
+        initializeWithValue: false
+    })
     const pathname = usePathname()
-
     const routes = [
         {
             label: "Home",
-            href: "/",
-            active: pathname === "/"
+            href: "/home",
+            active: pathname === "/home",
+            icon: <HomeIcon size={15}/>
         },
         {
             label: "Task",
-            href: "/",
-            active: pathname === "/"
+            href: "/task",
+            active: pathname === "/task",
+            icon: <ClipboardList size={15}/>
         },
         {
             label: "Finished",
-            href: "/",
-            active: pathname === "/"
+            href: "/finish",
+            active: pathname === "/finish",
+            icon: <CircleCheckBig size={15}/>
         },
     ]
-
-    return (
-        <div className='border-r left-0 top-0 h-screen w-64 flex flex-col space-y-2 gap-2 p-4'>
-            <h1 className='text-2xl font-semibold'>Sidebar</h1>
-            {routes.map((route) => (
-                <button key={route.href} className='w-full py-2 rounded-md hover:bg-slate-400'>
-                    <Link href={route.href}>{route.label}</Link>
-                </button>
-            ))}
-        </div>
-    )
+    if (!isDesktop) return <SidebarMobile routes={routes} />
+    return <SidebarDesktop routes={routes} />
 }
 
 export default Sidebar

@@ -9,21 +9,13 @@ interface Props {
   deleteTodoItem: (id: number) => void;
 }
 
-const Todo: FC<Props> = ({
-  todo,
-  changeTodoText,
-  toggleIsTodoDone,
-  deleteTodoItem,
-}) => {
+const Todo = ({ todo, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props) => {
   // State for handling editing mode
   const [editing, setEditing] = useState(false);
-
   // State for handling text input
   const [text, setText] = useState(todo.text);
-
   // State for handling "done" status
   const [isDone, setIsDone] = useState(todo.done);
-
   // Event handler for text input change
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -75,9 +67,8 @@ const Todo: FC<Props> = ({
         value={text}
         onChange={handleTextChange}
         readOnly={!editing}
-        className={`${
-          todo.done ? "line-through" : ""
-        } outline-none read-only:border-transparent focus:border border-gray-200 rounded px-2 py-1 w-full`}
+        className={`${todo.done ? "line-through" : ""
+          } outline-none read-only:border-transparent focus:border border-gray-200 rounded px-2 py-1 w-full`}
       />
       {/* Action buttons for editing, saving, canceling, and deleting */}
       <div className="flex gap-1 ml-auto">
@@ -91,22 +82,21 @@ const Todo: FC<Props> = ({
         ) : (
           <button
             onClick={handleEdit}
-            className="bg-blue-400 text-blue-50 rounded w-14 px-2 py-1"
-          >
+            className="bg-blue-500 text-blue-50 rounded w-14 px-2 py-1" >
             Edit
           </button>
         )}
         {editing ? (
           <button
             onClick={handleCancel}
-            className="bg-red-400 w-16 text-red-50 rounded px-2 py-1"
+            className="bg-red-500 w-16 text-red-50 rounded px-2 py-1"
           >
             Close
           </button>
         ) : (
           <button
             onClick={handleDelete}
-            className="bg-red-400 w-16 text-red-50 rounded px-2 py-1"
+            className="bg-red-500 w-16 text-red-50 rounded px-2 py-1"
           >
             Delete
           </button>

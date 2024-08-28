@@ -1,7 +1,7 @@
 "use client";
 import { FC, useState } from "react";
 import Todo from "./todo";
-import AddTodo from "./addTodo";
+import AddTodo from "./add-todo";
 import { todoType } from "../type/todoType";
 import { addTodo, deleteTodo, editTodo, toggleTodo } from "../actions/todoActions";
 import { UserButton } from "@clerk/nextjs";
@@ -48,7 +48,7 @@ const Todos: FC<Props> = ({ todos }) => {
   return (
     <>
       <main className="flex mx-auto max-w-xl w-full min-h-screen flex-col items-center p-16">
-        <div className="text-5xl font-medium">To-do app</div>
+        <div className="text-5xl font-medium">List of Todos</div>
         <div className="w-full flex flex-col mt-8 gap-2">
           {/* Mapping through todoItems and rendering Todo component for each */}
           {todoItems.map((todo) => (
