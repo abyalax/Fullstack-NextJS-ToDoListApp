@@ -1,21 +1,21 @@
 "use client";
-import { ChangeEvent, FC, useState } from "react";
-import { todoType } from "../type/todoType";
+import { ChangeEvent, useState } from "react";
+import { todoType } from "../type/type";
 
 interface Props {
-  todo: todoType;
-  changeTodoText: (id: number, text: string) => void;
-  toggleIsTodoDone: (id: number, done: boolean) => void;
-  deleteTodoItem: (id: number) => void;
+  todos: todoType;
+  changeTodoText: (id: string, text: string) => void;
+  toggleIsTodoDone: (id: string, done: boolean) => void;
+  deleteTodoItem: (id: string) => void;
 }
 
-const Todo = ({ todo, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props) => {
+const Todo = ({ todos, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props) => {
   // State for handling editing mode
   const [editing, setEditing] = useState(false);
   // State for handling text input
-  const [text, setText] = useState(todo.text);
+  const [text, setText] = useState(todos.text);
   // State for handling "done" status
-  const [isDone, setIsDone] = useState(todo.done);
+  const [isDone, setIsDone] = useState(todos.done);
   // Event handler for text input change
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
@@ -23,7 +23,7 @@ const Todo = ({ todo, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props)
 
   // Event handler for toggling "done" status
   const handleIsDone = async () => {
-    toggleIsTodoDone(todo.id, !isDone);
+    toggleIsTodoDone(todos.id, !isDone);
     setIsDone((prev) => !prev);
   };
 
@@ -34,20 +34,20 @@ const Todo = ({ todo, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props)
 
   // Event handler for saving the edited text
   const handleSave = async () => {
-    changeTodoText(todo.id, text);
+    changeTodoText(todos.id, text);
     setEditing(false);
   };
 
   // Event handler for canceling the edit mode
   const handleCancel = () => {
     setEditing(false);
-    setText(todo.text);
+    setText(todos.text);
   };
 
   // Event handler for deleting a todo item
   const handleDelete = () => {
     if (confirm("Are you sure you want to delete this todo?")) {
-      deleteTodoItem(todo.id);
+      deleteTodoItem(todos.id);
     }
   };
 
@@ -67,7 +67,7 @@ const Todo = ({ todo, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props)
         value={text}
         onChange={handleTextChange}
         readOnly={!editing}
-        className={`${todo.done ? "line-through" : ""
+        className={`${todos.done ? "line-through" : ""
           } outline-none read-only:border-transparent focus:border border-gray-200 rounded px-2 py-1 w-full`}
       />
       {/* Action buttons for editing, saving, canceling, and deleting */}

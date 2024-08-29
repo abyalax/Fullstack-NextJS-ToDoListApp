@@ -2,44 +2,45 @@
 import { eq, not } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "../db/drizzle";
-import { todo } from "../db/schema";
+import { todos } from "../db/schema";
 
-export const getData = async () => {
-  const data = await db.select().from(todo);
+export const getData = async (id: string) => {
+  const data = await db.select().from(todos).where(eq(todos.id, id));
   return data;
 };
 
-export const addTodo = async (id: number, text: string) => {
-  await db.insert(todo).values({
-    id: id,
-    text: text,
+
+export const addTodo = async (id: string, text: string, userId: string) => {
+  await db.insert(todos).values({
+    id,
+    text,
+    userId,
   });
 };
 
-export const deleteTodo = async (id: number) => {
-  await db.delete(todo).where(eq(todo.id, id));
-
+export const deleteTodo = async (id: string) => {
+  await db.delete(todos).where(eq(todos.id, id));
   revalidatePath("/");
 };
 
-export const toggleTodo = async (id: number) => {
+export const toggleTodo = async (id: string) => {
   await db
-    .update(todo)
+    .update(todos)
     .set({
-      done: not(todo.done),
+      done: not(todos.done),
     })
-    .where(eq(todo.id, id));
+    .where(eq(todos.id, id));
 
   revalidatePath("/");
 };
 
-export const editTodo = async (id: number, text: string) => {
+export const editTodo = async (id: string, text: string) => {
   await db
-    .update(todo)
+    .update(todos)
     .set({
       text: text,
     })
-    .where(eq(todo.id, id));
+    .where(eq(todos.id, id));
 
   revalidatePath("/");
 };

@@ -1,11 +1,17 @@
 import { getData } from '@/actions/todoActions';
 import Todos from '@/components/todos'
-import React from 'react'
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
 const Page = async () => {
+  const { userId } = await auth();
 
-  const data = await getData();
-  
+  if (!userId) {
+    redirect('/sign-in')
+  }
+
+  const data = await getData(userId)
+
   return (
     <div>
       <Todos todos={data} />

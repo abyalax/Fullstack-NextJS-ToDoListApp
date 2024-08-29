@@ -1,3 +1,4 @@
+import { getAllUser } from "@/actions/usersAction";
 import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/ui/navbar";
 import { auth } from "@clerk/nextjs/server";
@@ -9,9 +10,16 @@ export default async function SetUplayout({ children }: { children: React.ReactN
     const { userId, sessionId } = await auth()
     console.log({ userId, sessionId });
 
-    if (!userId) {
+    if(!userId) {
         redirect("/sign-in")
     }
+
+    const users = (await getAllUser()).find(user => user.id === userId)
+    
+    if (users) {
+        redirect("/")
+    }
+
 
     return (
         <div>
