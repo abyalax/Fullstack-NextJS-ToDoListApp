@@ -1,6 +1,7 @@
 "use client";
 import { ChangeEvent, useState } from "react";
 import { todoType } from "../type/type";
+import { Pencil, Save, TrashIcon, X } from "lucide-react";
 
 interface Props {
   todos: todoType;
@@ -53,52 +54,38 @@ const Todo = ({ todos, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props
 
   // Rendering the Todo component
   return (
-    <div className="flex items-center gap-2 p-4 border-gray-200 border-solid border rounded-lg">
-      {/* Checkbox for marking the todo as done */}
+    <div className="flex w-full items-center gap-2 p-4 border-gray-400 border-solid border rounded-lg dark:border-none dark:hover:bg-[#3B3B3B] dark:bg-[#212121]">
       <input
         type="checkbox"
-        className="text-blue-200 rounded-sm h-4 w-4"
+        className="text-blue-200 rounded-full h-6 w-6"
         checked={isDone}
         onChange={handleIsDone}
       />
-      {/* Input field for todo text */}
       <input
         type="text"
         value={text}
         onChange={handleTextChange}
         readOnly={!editing}
         className={`${todos.done ? "line-through" : ""
-          } outline-none read-only:border-transparent focus:border border-gray-200 rounded px-2 py-1 w-full`}
+          } outline-none read-only:border-transparent focus:border border-gray-400 rounded px-2 py-1 w-full dark:bg-transparent dark:border-none dark:focus:bg-[#3B3B3B] dark:hover:bg-[#3B3B3B] dark:text-white`}
       />
-      {/* Action buttons for editing, saving, canceling, and deleting */}
-      <div className="flex gap-1 ml-auto">
+      <div className="flex justify-end gap-1 ">
         {editing ? (
-          <button
-            onClick={handleSave}
-            className="bg-green-600 text-green-50 rounded px-2 w-14 py-1"
-          >
-            Save
+          <button onClick={handleSave} className="bg-transparent w-fit px-2 py-1 dark:hover:text-white dark:text-slate-600">
+            <Save />
           </button>
         ) : (
-          <button
-            onClick={handleEdit}
-            className="bg-blue-500 text-blue-50 rounded w-14 px-2 py-1" >
-            Edit
+          <button onClick={handleEdit} className="bg-transparent w-fit px-2 py-1 dark:hover:text-white dark:text-slate-600 " >
+            <Pencil />
           </button>
         )}
         {editing ? (
-          <button
-            onClick={handleCancel}
-            className="bg-red-500 w-16 text-red-50 rounded px-2 py-1"
-          >
-            Close
+          <button onClick={handleCancel} className="bg-transparent w-fit px-2 py-1 dark:hover:text-white dark:text-slate-500 " >
+            <X />
           </button>
         ) : (
-          <button
-            onClick={handleDelete}
-            className="bg-red-500 w-16 text-red-50 rounded px-2 py-1"
-          >
-            Delete
+          <button onClick={handleDelete} className="bg-transparent w-fit px-2 py-1 hover:text-red-500 dark:hover:text-white dark:text-slate-500 " >
+            <TrashIcon size={22} />
           </button>
         )}
       </div>

@@ -18,7 +18,7 @@ interface SidebarProps {
 export const SidebarMobile = ({ routes }: SidebarProps) => {
     return (
         <Sheet>
-            <SheetTrigger asChild className='absolute left-2'>
+            <SheetTrigger asChild className='absolute z-10 left-2 top-1'>
                 <Button>
                     <CircleChevronRight className='w-7 h-7' />
                 </Button>
@@ -28,10 +28,10 @@ export const SidebarMobile = ({ routes }: SidebarProps) => {
                     <h1 className='text-2xl font-semibold'>Sidebar</h1>
                     {routes.map((route) => (
                         <Button key={route.href} style={{ borderRadius: '10px' }} className={cn(
-                            'w-full flex flex-row gap-2 items-center py-2 pl-2 rounded-lg dark:hover:bg-[#212124] hover:bg-[#f5f5f5]',
+                            'w-full flex flex-row gap-2 py-2 rounded-lg dark:hover:bg-[#212124] hover:bg-[#f5f5f5]',
                             route.active && 'bg-[#f5f5f5] dark:bg-[#212124]'
                         )}>
-                            <Link href={route.href}>
+                            <Link href={route.href} className='flex flex-row gap-2 justify-start'>
                                 {route.icon}
                                 {route.label}
                             </Link>

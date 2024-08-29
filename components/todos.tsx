@@ -11,13 +11,13 @@ interface Props {
 }
 
 const Todos: FC<Props> = ({ todos }) => {
-  const {userId} = useAuth()
+  const { userId } = useAuth()
   // State to manage the list of todo items
   const [todoItems, setTodoItems] = useState<todoType[]>(todos);
   // Function to create a new todo item
   const createTodo = (text: string) => {
     const id = todoItems.length.toString()
-    if(userId) addTodo(id, text, userId)
+    if (userId) addTodo(id, text, userId)
     setTodoItems((prev) => [...prev, { id: id, text, done: false }]);
   };
 
@@ -46,22 +46,19 @@ const Todos: FC<Props> = ({ todos }) => {
   // Rendering the Todo List component
   return (
     <>
-      <main className="flex mx-auto max-w-xl w-full min-h-screen flex-col items-center p-16">
-        <div className="text-5xl font-medium">List of Todos</div>
+      <main className="flex mx-auto w-full min-h-screen flex-col items-center p-16">
         <div className="w-full flex flex-col mt-8 gap-2">
-          {/* Mapping through todoItems and rendering Todo component for each */}
-          {todoItems.map((todo) => (
-            <Todo
-              key={todo.id}
-              todos={todo}
-              changeTodoText={changeTodoText}
-              toggleIsTodoDone={toggleIsTodoDone}
-              deleteTodoItem={deleteTodoItem}
-            />
-          ))}
+            {todoItems.map((todo) => (
+              <Todo
+                key={todo.id}
+                todos={todo}
+                changeTodoText={changeTodoText}
+                toggleIsTodoDone={toggleIsTodoDone}
+                deleteTodoItem={deleteTodoItem}
+              />
+            ))}
+          <AddTodo createTodo={createTodo} />
         </div>
-        {/* Adding Todo component for creating new todos */}
-        <AddTodo createTodo={createTodo} />
       </main>
     </>
   );

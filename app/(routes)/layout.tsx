@@ -1,30 +1,40 @@
 import { getAllUser } from "@/actions/usersAction";
 import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/ui/navbar";
-import { auth } from "@clerk/nextjs/server";
+import { db } from "@/db/drizzle";
+import { users } from "@/db/schema";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 
 export default async function SetUplayout({ children }: { children: React.ReactNode }) {
 
-    const { userId, sessionId } = await auth()
-    console.log({ userId, sessionId });
+    const { userId } = await auth()
+    const data = await currentUser()
 
-    if(!userId) {
+    if (!userId) {
         redirect("/sign-in")
     }
 
-    const users = (await getAllUser()).find(user => user.id === userId)
-    
-    if (users) {
-        redirect("/")
-    }
+    const dataUser = (await getAllUser()).find(user => user.id === userId)
 
+    if (data && !dataUser && data.firstName) {
+        const user = {
+            id: data?.id,
+            name: data.firstName,
+            email: data?.emailAddresses[0]?.emailAddress
+        }
+    
+        if (!dataUser && user) {
+            await db.insert(users).values(user)
+        }
+    
+    }
 
     return (
         <div>
             <Navbar />
-            <div className="flex flex-row gap-8">
+            <div className="flex flex-row">
                 <div className="relative">
                     <Sidebar />
                 </div>

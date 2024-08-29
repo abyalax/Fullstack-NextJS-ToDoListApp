@@ -5,10 +5,9 @@ import { db } from "../db/drizzle";
 import { todos } from "../db/schema";
 
 export const getData = async (id: string) => {
-  const data = await db.select().from(todos).where(eq(todos.id, id));
+  const data = await db.select().from(todos).where(eq(todos.userId, id));
   return data;
 };
-
 
 export const addTodo = async (id: string, text: string, userId: string) => {
   await db.insert(todos).values({

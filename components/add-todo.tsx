@@ -1,5 +1,7 @@
 "use client";
 import { ChangeEvent, FC, useState } from "react";
+import { Button } from "./ui/button";
+import { PlusIcon } from "lucide-react";
 
 interface Props {
   createTodo: (value: string) => void;
@@ -22,20 +24,15 @@ const AddTodo: FC<Props> = ({ createTodo }) => {
 
   // Rendering the AddTodo component
   return (
-    <div className="w-full flex gap-1 mt-2">
-      {/* Input field for entering new todo text */}
+    <div className="fixed items-center justify-end flex gap-1 bottom-16 lg:w-[700px] md:w-[500px] sm:w-[300px] xs:w-[200px]">
       <input
-        type="text"
-        className="w-full px-2 py-1 border border-gray-200 rounded outline-none"
+        className=" w-full h-14 px-2 py-1 border border-gray-400 rounded outline-none dark:border-none dark:hover:bg-[#3B3B3B] dark:bg-[#212121] "
         onChange={handleInput}
+        type="text"
         value={input}
       />
-      {/* Button for adding a new todo */}
-      <button
-        className="flex items-center justify-center bg-green-600 text-green-50 rounded px-2 h-9 w-14 py-1"
-        onClick={handleAdd}
-      >
-        Add
+      <button onClick={handleAdd} className=" h-14 px-4 text-lg rounded font-semibold flex flex-row items-center justify-center bg-slate-300 hover:bg-slate-600 hover:text-white dark:border-none dark:hover:bg-[#3B3B3B] dark:bg-[#92A4B1] dark:text-black">
+        <PlusIcon /> Add
       </button>
     </div>
   );

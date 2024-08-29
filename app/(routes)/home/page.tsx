@@ -13,7 +13,7 @@ const Page = async () => {
   const data = await getData(userId)
 
   return (
-    <div>
+    <div className='w-full'>
       <Todos todos={data} />
     </div>
   )
