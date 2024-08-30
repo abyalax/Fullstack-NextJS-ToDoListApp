@@ -2,6 +2,7 @@
 import { ChangeEvent, useState } from "react";
 import { todoType } from "../type/type";
 import { Pencil, Save, TrashIcon, X } from "lucide-react";
+import { formatDate } from "@/lib/utils";
 
 interface Props {
   todos: todoType;
@@ -57,18 +58,24 @@ const Todo = ({ todos, changeTodoText, toggleIsTodoDone, deleteTodoItem }: Props
     <div className="flex w-full items-center gap-2 p-4 border-gray-400 border-solid border rounded-lg dark:border-none dark:hover:bg-[#3B3B3B] dark:bg-[#212121]">
       <input
         type="checkbox"
-        className="text-blue-200 rounded-full h-6 w-6"
+        className="text-blue-200 rounded-full h-6 w-6 mb-2"
         checked={isDone}
         onChange={handleIsDone}
       />
-      <input
-        type="text"
-        value={text}
-        onChange={handleTextChange}
-        readOnly={!editing}
-        className={`${todos.done ? "line-through" : ""
-          } outline-none read-only:border-transparent focus:border border-gray-400 rounded px-2 py-1 w-full dark:bg-transparent dark:border-none dark:focus:bg-[#3B3B3B] dark:hover:bg-[#3B3B3B] dark:text-white`}
-      />
+      <div className="w-full rounded flex flex-col justify-around">
+        <input
+          type="text"
+          value={text}
+          onChange={handleTextChange}
+          readOnly={!editing}
+          className={`${todos.done ? "line-through" : ""
+            } outline-none read-only:border-transparent focus:border border-gray-400 rounded px-2 py-1 w-full dark:bg-transparent dark:border-none dark:focus:bg-[#3B3B3B] dark:hover:bg-[#3B3B3B] dark:text-white`}
+        />
+        <div className="flex flex-row gap-1 text-xs px-2">
+          <p>{todos.plannedAt ? formatDate(todos.plannedAt) : "Task"}</p>
+          <p>{todos.createdAt ? formatDate(todos.createdAt) : ""}</p>
+        </div>
+      </div>
       <div className="flex justify-end gap-1 ">
         {editing ? (
           <button onClick={handleSave} className="bg-transparent w-fit px-2 py-1 dark:hover:text-white dark:text-slate-600">

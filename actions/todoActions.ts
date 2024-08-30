@@ -9,11 +9,12 @@ export const getData = async (id: string) => {
   return data;
 };
 
-export const addTodo = async (id: string, text: string, userId: string) => {
+export const addTodo = async (id: string, text: string, userId: string, plannedAt?: Date) => {
   await db.insert(todos).values({
     id,
     text,
     userId,
+    plannedAt
   });
 };
 

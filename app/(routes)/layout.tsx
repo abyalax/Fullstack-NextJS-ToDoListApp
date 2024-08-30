@@ -1,4 +1,5 @@
 import { getAllUser } from "@/actions/usersAction";
+import Details from "@/components/detail-todo";
 import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/ui/navbar";
 import { db } from "@/db/drizzle";
@@ -41,6 +42,7 @@ export default async function SetUplayout({ children }: { children: React.ReactN
                 <div className="pl-0 pt-8 w-full sm:pl-64">
                     {children}
                 </div>
+                <Details/>
             </div>
         </div>
     );
