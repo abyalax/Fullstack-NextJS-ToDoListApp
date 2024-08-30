@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'usehooks-ts'
 import { SidebarDesktop, SidebarMobile } from './ui/sidebar'
-import { HomeIcon, CircleCheckBig, ClipboardList, } from 'lucide-react'
+import { HomeIcon, CircleCheckBig, ClipboardList, CalendarDays } from 'lucide-react'
 
 const Sidebar = () => {
     const isDesktop = useMediaQuery('(min-width: 640px)', {
@@ -21,6 +21,12 @@ const Sidebar = () => {
             href: "/task",
             active: pathname === "/task",
             icon: <ClipboardList size={15}/>
+        },
+        {
+            label: "Planned",
+            href: "/planned",
+            active: pathname === "/planned",
+            icon: <CalendarDays size={15} />
         },
         {
             label: "Finished",

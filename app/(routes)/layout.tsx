@@ -24,21 +24,23 @@ export default async function SetUplayout({ children }: { children: React.ReactN
             name: data.firstName,
             email: data?.emailAddresses[0]?.emailAddress
         }
-    
+
         if (!dataUser && user) {
             await db.insert(users).values(user)
         }
-    
+
     }
 
     return (
         <div>
             <Navbar />
-            <div className="flex flex-row">
+            <div className="flex flex-row ">
                 <div className="relative">
                     <Sidebar />
                 </div>
-                {children}
+                <div className="pl-0 pt-8 w-full sm:pl-64">
+                    {children}
+                </div>
             </div>
         </div>
     );

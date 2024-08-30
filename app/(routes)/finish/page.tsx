@@ -9,12 +9,6 @@ const Page = async () => {
   
   if (userId) {
     const data = (await getData(userId)).filter(item => item.done === true)
-    // const formattedData = [
-    //   {
-    //     task: data[0]?.text,
-    //     date: data[0]?.updatedAt.toDateString()
-    //   }
-    // ]
     const formattedData = data.map((item) => ({
       task: item.text,
       date: item.updatedAt.toDateString()

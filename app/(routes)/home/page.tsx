@@ -14,7 +14,7 @@ const Page = async () => {
 
   return (
     <div className='w-full'>
-      <Todos todos={data} />
+      <Todos todos={data}/>
     </div>
   )
 }

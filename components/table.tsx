@@ -23,7 +23,7 @@ const Table = ({ tasks, done }: Props) => {
             {/* <TableCaption>Finished Your Tasks</TableCaption> */}
             <TableHeader>
                 <TableRow>
-                    <TableHead className="w-[100px]">No</TableHead>
+                    <TableHead className="w-[4%]">No</TableHead>
                     <TableHead>Task</TableHead>
                     <TableHead className="text-right">{done ? 'Completion' : 'Date Task'}</TableHead>
                 </TableRow>

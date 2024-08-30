@@ -16,6 +16,7 @@ export const todos = pgTable("todos", {
   userId: text("user_id").notNull().references(() => users.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  plannedAt: timestamp("planned_at")
 });
 
 export const todosRelations = relations(todos, ({ one }) => ({
