@@ -1,10 +1,10 @@
 "use client"
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'usehooks-ts'
-import { SidebarDesktop, SidebarMobile } from './ui/sidebar'
+import { SidebarDesktop, SidebarMobile } from '../ui/sidebar'
 import { HomeIcon, CircleCheckBig, ClipboardList, CalendarDays } from 'lucide-react'
 
-const Sidebar = () => {
+const SidebarLeft = () => {
     const isDesktop = useMediaQuery('(min-width: 640px)', {
         initializeWithValue: false
     })
@@ -39,4 +39,4 @@ const Sidebar = () => {
     return <SidebarDesktop routes={routes} />
 }
 
-export default Sidebar
+export default SidebarLeft

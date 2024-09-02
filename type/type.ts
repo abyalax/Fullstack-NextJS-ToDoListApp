@@ -1,10 +1,11 @@
 export type todoType = {
   id: string;
   text: string;
+  note?: string | null;
   done: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
-  plannedAt?: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+  plannedAt: Date | null;
 };    
 
 export type userType = {

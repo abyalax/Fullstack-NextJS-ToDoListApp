@@ -12,6 +12,7 @@ export const users = pgTable("users", {
 export const todos = pgTable("todos", {
   id: text("id").primaryKey(),
   text: text("text").notNull(),
+  note: text("note"),
   done: boolean("done").default(false).notNull(),
   userId: text("user_id").notNull().references(() => users.id),
   createdAt: timestamp("created_at").defaultNow().notNull(),

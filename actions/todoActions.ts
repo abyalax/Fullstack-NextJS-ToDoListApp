@@ -9,11 +9,12 @@ export const getData = async (id: string) => {
   return data;
 };
 
-export const addTodo = async (id: string, text: string, userId: string, plannedAt?: Date) => {
+export const addTodo = async (id: string, text: string, userId: string, note?: string, plannedAt?: Date | null) => {
   await db.insert(todos).values({
     id,
     text,
     userId,
+    note,
     plannedAt
   });
 };
@@ -34,11 +35,12 @@ export const toggleTodo = async (id: string) => {
   revalidatePath("/");
 };
 
-export const editTodo = async (id: string, text: string) => {
+export const editTodo = async (id: string, text: string, note?: string) => {
   await db
     .update(todos)
     .set({
-      text: text,
+      text,
+      note,
     })
     .where(eq(todos.id, id));
 

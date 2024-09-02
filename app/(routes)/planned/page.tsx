@@ -7,7 +7,7 @@ const Page = async () => {
   const { userId } = await auth()
   
   if (userId) {
-    const data = (await getData(userId)).filter(item => item.done === false)
+    const data = (await getData(userId)).filter(item => item.done === false && item.plannedAt !== null)
     const formattedData = data.map((item) => ({
       task: item.text,
       date: item.createdAt.toDateString()

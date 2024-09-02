@@ -1,6 +1,4 @@
-"use client"
 import Link from 'next/link'
-import React from 'react'
 import { Sheet, SheetContent, SheetTrigger } from './sheet'
 import { Button } from './button'
 import { CircleChevronRight } from 'lucide-react'
@@ -14,6 +12,7 @@ interface SidebarProps {
         active: boolean,
         icon: React.ReactNode
     }[],
+    
 }
 
 export const SidebarMobile = ({ routes }: SidebarProps) => {

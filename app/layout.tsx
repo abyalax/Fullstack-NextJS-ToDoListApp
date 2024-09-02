@@ -3,7 +3,8 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/provider/theme-provider";
+import { DetailsTodoProvider } from "@/provider/detail-provider";
 
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function RootLayout({
                         enableSystem
                         disableTransitionOnChange
                     >
+                        <DetailsTodoProvider />
                         {children}
                     </ThemeProvider>
                 </body>

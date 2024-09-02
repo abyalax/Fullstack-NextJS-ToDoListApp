@@ -1,6 +1,6 @@
 import { getAllUser } from "@/actions/usersAction";
-import Details from "@/components/detail-todo";
-import Sidebar from "@/components/sidebar";
+import Details from "@/components/todo/details";
+import Sidebar from "@/components/sidebar/sidebar-left";
 import Navbar from "@/components/ui/navbar";
 import { db } from "@/db/drizzle";
 import { users } from "@/db/schema";

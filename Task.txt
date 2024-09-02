@@ -1,0 +1,4 @@
+- Implement Input for Planned task ____DONE
+- Tampilkan task planned di page planned ____DONE
+
+- Tampilkan Detail Todos di sidebar sheet right

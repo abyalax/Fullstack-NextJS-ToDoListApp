@@ -2,9 +2,10 @@
 import React, { useState } from 'react'
 import { Input } from './input'
 import { SearchIcon } from 'lucide-react'
+import { todoType } from '@/type/type'
 
 interface Props {
-  setResults: any
+  setResults: (results: todoType[]) => void
 }
 
 const SearchBar = ({setResults }: Props) => {

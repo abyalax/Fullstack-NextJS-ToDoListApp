@@ -5,15 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(dateString: Date) {
+export function formatDate(dateString: Date | null) {
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const months = [
       "January", "February", "March", "April", "May", "June", "July",
       "August", "September", "October", "November", "December"
   ];
-
+  if(dateString == null ) return "";
   const date = new Date(dateString);
-
   const dayName = daysOfWeek[date.getDay()];
   const day = date.getDate();
   const monthName = months[date.getMonth()];
@@ -21,8 +20,3 @@ export function formatDate(dateString: Date) {
 
   return `${dayName}, ${day} ${monthName} ${year}`;
 }
-
-// Contoh penggunaan
-// const formattedDate = formatDate('2024-08-30T12:34:56Z');
-// console.log(formattedDate); // Output: "Friday, 30 August 2024"
-
