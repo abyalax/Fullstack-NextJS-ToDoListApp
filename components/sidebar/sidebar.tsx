@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { Sheet, SheetContent, SheetTrigger } from './sheet'
-import { Button } from './button'
+import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Button } from '../ui/button'
 import { CircleChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SignOutButton } from '@clerk/nextjs'
@@ -23,7 +23,7 @@ export const SidebarMobile = ({ routes }: SidebarProps) => {
                     <CircleChevronRight className='w-7 h-7' />
                 </Button>
             </SheetTrigger>
-            <SheetContent side={"left"} className='absolute left-0 top-0 w-auto p-0 text-white'>
+            <SheetContent side={"left"} className='absolute left-0 top-0 w-auto p-0 text-white bg-white dark:bg-black'>
                 <div className='dark:bg-black bg-white text-black dark:text-white h-screen w-64 flex flex-col space-y-2 gap-2 pt-14 pl-4'>
                     <h1 className='text-2xl font-semibold'>Sidebar</h1>
                     {routes.map((route) => (

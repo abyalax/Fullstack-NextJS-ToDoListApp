@@ -36,7 +36,7 @@ export default function RootLayout({
                         enableSystem
                         disableTransitionOnChange
                     >
-                        <DetailsTodoProvider />
+                        <DetailsTodoProvider todo={null} />
                         {children}
                     </ThemeProvider>
                 </body>

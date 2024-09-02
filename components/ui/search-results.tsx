@@ -12,15 +12,13 @@ interface Props {
 }
 
 const SearchResults = ({ results }: Props) => {
-  const detailTodo = useDetails()
-  // const onOpen = useDetails((state) => state.onOpen);
-  const [selectedTodo, setSelectedTodo] = useState<todoType>({} as todoType);
+  const {isOpen, onClose, onOpen, setTodo, todo} = useDetails()
   const { userId } = useAuth();
 
   const handleTodoClick = (item: todoType) => {
-    setSelectedTodo(item);
+    setTodo(item);
     console.log(item);
-    // detailTodo.onOpen()
+    onOpen()
   };
 
   const createTodo = (text: string, note?: string, plannedAt?: Date | null) => {
@@ -39,7 +37,7 @@ const SearchResults = ({ results }: Props) => {
             <p className='mx-4 mb-2'>{item.done}</p>
           </div>
         ))}
-        {selectedTodo ? <DetailsTodo createTodo={createTodo} todos={selectedTodo} /> : null}
+        {todo ? <DetailsTodo createTodo={createTodo}/> : null}
       </div>
     </>
   )

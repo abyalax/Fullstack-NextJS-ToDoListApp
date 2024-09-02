@@ -27,7 +27,7 @@ const SidebarRight = ({ children }: Props) => {
                     <CircleChevronLeft className='w-7 h-7' />
                 </Button>
             </SheetTrigger>
-            <SheetContent>
+            <SheetContent className='text-black dark:text-white bg-white dark:bg-black'>
                 {children}
             </SheetContent>
         </Sheet>

@@ -8,35 +8,26 @@ import { CalendarForm } from "../ui/date-picker"
 import { useState, FormEvent, useEffect } from "react"
 
 interface Props {
-    todos: {
-        text: string
-        note?: string | null
-        done: boolean
-        id: string
-        createdAt?: Date
-        updatedAt?: Date
-        plannedAt?: Date | null
-    },
     createTodo: (text: string, note?: string, plannedAt?: Date | null) => void
 }
 
-const DetailsTodo = ({ todos, createTodo }: Props) => {
-    const detailTodo = useDetails()
-    const [selectedDate, setSelectedDate] = useState<Date | null>(todos?.plannedAt ?? null);
-    const [taskText, setTaskText] = useState<string>(todos?.text);
-    const [noteText, setNoteText] = useState<string>(todos?.note || '');
+const DetailsTodo = ({ createTodo }: Props) => {
+    const { todo, setTodo, isOpen, onOpen, onClose } = useDetails()
+    const [selectedDate, setSelectedDate] = useState<Date | null>(todo?.plannedAt ?? null);
+    const [taskText, setTaskText] = useState<string>(todo?.text || '');
+    const [noteText, setNoteText] = useState<string>(todo?.note || '');
 
     const handleDateSelect = (date: Date) => {
         setSelectedDate(date);
     };
 
     useEffect(() => {
-        if (todos) {
-            setTaskText(todos.text);
-            setNoteText(todos.note ?? '');
-            setSelectedDate(todos.plannedAt ?? null);
+        if (todo) {
+            setTaskText(todo.text);
+            setNoteText(todo.note ?? '');
+            setSelectedDate(todo.plannedAt ?? null);
         }
-    }, [todos]);
+    }, [todo]);
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
@@ -44,14 +35,14 @@ const DetailsTodo = ({ todos, createTodo }: Props) => {
         setTaskText('');
         setNoteText('');
         setSelectedDate(null);
-        detailTodo.onClose();
+        onClose();
     };
 
-    if (!todos) {
+    if (!todo) {
         return null;
     }
     return (
-        <SidebarRight isOpen={detailTodo.isOpen} onOpen={detailTodo.onOpen} onClose={detailTodo.onClose}>
+        <SidebarRight  isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
             <SheetHeader className='my-7'>
                 <SheetTitle>Todo App</SheetTitle>
                 <SheetDescription>
@@ -67,7 +58,7 @@ const DetailsTodo = ({ todos, createTodo }: Props) => {
                     <input
                         id="task"
                         value={taskText}
-                        defaultValue={todos?.text}
+                        defaultValue={todo?.text}
                         onChange={(e) => setTaskText(e.target.value)}
                         placeholder='Add Your Task'
                         className="col-span-3 p-2 dark:placeholder-slate-600 dark:border-slate-600 dark:border rounded-xl dark:focus:border-2 dark:focus:border-white"
@@ -81,7 +72,7 @@ const DetailsTodo = ({ todos, createTodo }: Props) => {
                     <input
                         id="note"
                         value={noteText}
-                        defaultValue={todos?.note || ''}
+                        defaultValue={todo?.note || ''}
                         onChange={(e) => setNoteText(e.target.value)}
                         placeholder='Add Some Notes'
                         className="col-span-3 p-2 dark:placeholder-slate-600 dark:border-slate-600 dark:border rounded-xl dark:focus:border-2 dark:focus:border-white"

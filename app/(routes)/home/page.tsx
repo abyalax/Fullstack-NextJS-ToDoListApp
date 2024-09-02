@@ -11,31 +11,6 @@ const Page = async () => {
   }
 
   const data = await getData(userId)
-
-  /**
-   * const data: {
-    userId: string;
-    id: string;
-    text: string;
-    note: string | null;
-    done: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-    plannedAt: Date | null;
-}[]
-   */
-
-  /**
-   * todoType
-   * id: string;
-    text: string;
-    note?: string;
-    done: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-    plannedAt: Date | null;
-   */
-
   return (
     <div className='w-full'>
       <TodosList todos={data}/>

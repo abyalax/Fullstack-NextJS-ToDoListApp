@@ -16,18 +16,20 @@ interface Props {
 const TodosList: FC<Props> = ({ todos }) => {
   const [todoItems, setTodoItems] = useState<todoType[]>(todos);
   // const [selectedTodo, setSelectedTodo] = useState<todoType | null>(null);
-  const [selectedTodo, setSelectedTodo] = useState<todoType>({} as todoType);
+  // const [selectedTodo, setSelectedTodo] = useState<todoType>({} as todoType);
+
   const { userId } = useAuth();
-  const detailsTodo = useDetails()
+  const { isOpen, onOpen, onClose, setTodo, todo } = useDetails()
 
   const handleTodoClick = (todo: todoType) => {
-    setSelectedTodo(todo);
-};
+    setTodo(todo);
+    onOpen();
+  };
 
   const createTodo = (text: string, note?: string, plannedAt?: Date | null) => {
     const id = `${Date.now() + Math.random()}`;
     const newTodo: todoType = { id, text, done: false, note: note || "", plannedAt: plannedAt || null, createdAt: new Date(), updatedAt: new Date() };
-    if (userId) addTodo(id, text, userId,note, plannedAt);
+    if (userId) addTodo(id, text, userId, note, plannedAt);
     setTodoItems((prev) => [...prev, newTodo]);
   };
 
@@ -52,27 +54,29 @@ const TodosList: FC<Props> = ({ todos }) => {
 
   return (
     <>
-        <main className="flex mx-auto w-full min-h-screen flex-col items-center px-16 pt-6">
-            <div className="w-full flex flex-col mt-8 gap-2">
-                <h1 className="text-3xl font-semibold">Welcome Back</h1>
-                <h1>{"Here's a list of your tasks for this month!"}</h1>
-                {todoItems.map((todo) => (
-                    <div key={todo.id} onClick={() => handleTodoClick(todo)}>
-                        <Todo
-                            todos={todo}
-                            changeTodoText={changeTodoText}
-                            toggleIsTodoDone={toggleIsTodoDone}
-                            deleteTodoItem={deleteTodoItem} />
-                    </div>
-                ))}
-                {selectedTodo && <DetailsTodo createTodo={createTodo} todos={selectedTodo} />}
+      <main className="flex mx-auto w-full min-h-screen flex-col items-center px-16 pt-6">
+        <div className="w-full flex flex-col mt-8 gap-2">
+          <h1 className="text-3xl font-semibold">Welcome Back</h1>
+          <h1>{"Here's a list of your tasks for this month!"}</h1>
+          {todoItems.map((todo) => (
+            <div key={todo.id}>
+              <Todo
+                todos={todo}
+                changeTodoText={changeTodoText}
+                toggleIsTodoDone={toggleIsTodoDone}
+                deleteTodoItem={deleteTodoItem}
+                handleOnClick={handleTodoClick}
+                />
             </div>
-            <hr className="mt-52"/>
-            {/* <span className="mt-32"/> */}
-            <AddTodo createTodo={createTodo} />
-        </main>
+          ))}
+        </div>
+        <hr className="mt-52" />
+        {/* <span className="mt-32"/> */}
+        <AddTodo createTodo={createTodo} />
+        {todo && <DetailsTodo createTodo={createTodo} />}
+      </main>
     </>
-);
+  );
 };
 
 export default TodosList;

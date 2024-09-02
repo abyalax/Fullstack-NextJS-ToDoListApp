@@ -1,7 +1,7 @@
 "use client"
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'usehooks-ts'
-import { SidebarDesktop, SidebarMobile } from '../ui/sidebar'
+import { SidebarDesktop, SidebarMobile } from './sidebar'
 import { HomeIcon, CircleCheckBig, ClipboardList, CalendarDays } from 'lucide-react'
 
 const SidebarLeft = () => {

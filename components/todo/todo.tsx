@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react"
 import { Pencil, Save, TrashIcon, X } from "lucide-react";
 import { formatDate } from "@/lib/utils"
 import { useDetails } from "@/hooks/use-todo"
+import { todoType } from "@/type/type";
 
 interface Props {
   todos: {
@@ -17,51 +18,42 @@ interface Props {
   deleteTodoItem: (id: string) => void
   toggleIsTodoDone: (id: string) => void
   changeTodoText: (id: string, text: string) => void
+  handleOnClick: (todo: todoType) => void
 }
 
-const Todo = ({ todos, deleteTodoItem, toggleIsTodoDone, changeTodoText }: Props) => {
+const Todo = ({ todos, deleteTodoItem, toggleIsTodoDone, changeTodoText, handleOnClick }: Props) => {
   const [editing, setEditing] = useState(false);
   const [text, setText] = useState(todos.text);
   const [isDone, setIsDone] = useState(todos.done);
-  const onOpen = useDetails((state) => state.onOpen);
-  // const onClose = useDetails((state) => state.onClose);
 
-  // Event handler for text input change
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
-  // Event handler for toggling "done" status
   const handleIsDone = async () => {
     toggleIsTodoDone(todos.id);
     setIsDone((prev) => !prev);
   };
 
-  // Event handler for initiating the edit mode
   const handleEdit = () => {
     setEditing(true);
   };
 
-  // Event handler for saving the edited text
   const handleSave = async () => {
     changeTodoText(todos.id, text);
     setEditing(false);
   };
-
-  // Event handler for canceling the edit mode
   const handleCancel = () => {
     setEditing(false);
     setText(todos.text);
   };
-
-  // Event handler for deleting a todo item
   const handleDelete = () => {
     if (confirm("Are you sure you want to delete this todo?")) {
       deleteTodoItem(todos.id);
     }
   };
   return (
-    <div className="flex w-full cursor-pointer items-center gap-2 p-4 border-gray-400 border-solid border rounded-lg dark:border-none dark:hover:bg-[#3B3B3B] dark:bg-[#212121]">
+    <div className="flex w-full cursor-pointer items-center gap-2 p-4 border-gray-400 border-solid border rounded-xl dark:border-none dark:hover:bg-[#3B3B3B] dark:bg-[#212121]">
       <input
         type="checkbox"
         className="text-blue-200 rounded-full h-6 w-6 mb-2"
@@ -93,7 +85,7 @@ const Todo = ({ todos, deleteTodoItem, toggleIsTodoDone, changeTodoText }: Props
             <Save />
           </button>
         ) : (
-          <button onClick={onOpen} className="bg-transparent w-fit px-2 py-1 dark:hover:text-white dark:text-slate-600 " >
+          <button onClick={() => handleOnClick(todos)} className="bg-transparent w-fit px-2 py-1 dark:hover:text-white dark:text-slate-600 " >
             <Pencil />
           </button>
         )}
